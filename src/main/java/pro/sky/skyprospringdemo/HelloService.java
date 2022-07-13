@@ -1,13 +1,7 @@
 package pro.sky.skyprospringdemo;
 
-import org.springframework.stereotype.Service;
+public interface HelloService {
+    String hello();
 
-@Service
-public class HelloService {
-    public String hello() {
-        return "<b>hello</b>";
-    }
-    public String answerHello(String userName) {
-        return "<b>hello </b>" + userName;
-    }
+    String answerHello(String userName);
 }
