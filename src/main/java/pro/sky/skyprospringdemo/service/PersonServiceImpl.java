@@ -6,9 +6,12 @@ import pro.sky.skyprospringdemo.domain.Person;
 import pro.sky.skyprospringdemo.domain.TruckDriver;
 import pro.sky.skyprospringdemo.exceptions.BadPersonNumberException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class PersonServiceImpl implements PersonService {
-    Person[] persons = {
+    List<Person> persons = new ArrayList<>(List.of(
             new Person(
             "Жан",
             "Рено",
@@ -37,26 +40,30 @@ public class PersonServiceImpl implements PersonService {
                 "2345",
                     4)
 
-};
-    String[] professions = {
+    ));
+    List<String> professions =List.of(
             "безработный",
             "водитель",
             "плотник",
             "столяр"
-    };
+    );
 
     @Override
     public String getPerson(Integer number) throws BadPersonNumberException {
         final Person person;
-        if (number >= persons.length) {
+        if (number >= persons.size()) {
             throw new BadPersonNumberException("ошибка в том, что номер человека заведомо больше размера массива");
         }
-        person = persons[number];
+        person = persons.get(number);
         final String personDescription = ""
                 + person.getName() + " "
                 + person.getSurname() + " "
                 + person.getPassport() + " "
-                + professions[person.getProfessionNumber()];
+                + professions.get(person.getProfessionNumber());
         return personDescription;
+    }
+    @Override
+    public void addPerson(Person person) {
+        persons.add(person);
     }
 }
