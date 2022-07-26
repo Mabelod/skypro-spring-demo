@@ -14,11 +14,9 @@ public class PersonController {
         this.personService = personService;
     }
 
-    @GetMapping("/person")
-    public String getPersonInfo(@RequestParam("number") Integer number) {
-        final String person;
-        person = personService.getPerson(number);
-        return person;
+    @GetMapping("/person/by-passport")
+    public String getPersonInfo(@RequestParam("passport") String passport) {
+        return personService.getPersonByPassport(passport);
     }
 
     @GetMapping("/person/add")
@@ -34,6 +32,12 @@ public class PersonController {
         );
         personService.addPerson(person);
         return "Person added";
+    }
+    @GetMapping("/person/profession/add")
+    public String addProfession(@RequestParam("passport") String passport,
+                                @RequestParam("profession") Integer profession) {
+        personService.addProfession(passport, profession);
+        return "Профессия успешно добавлена";
     }
 
 }
